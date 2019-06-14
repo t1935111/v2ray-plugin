@@ -62,3 +62,5 @@ v2ray.com/core v4.16.0+incompatible h1:XSbhMbLxUXp2A1LHiHcaCm5CL3lYJcKrvBV8oVCjb
 v2ray.com/core v4.16.0+incompatible/go.mod h1:6KwG864rMqTYMPTqCDb1slCROLPh6rS4oDfQgFPRfT4=
 v2ray.com/core v4.18.2+incompatible h1:GbSwz+VFRipsrHVpHn6KGWcKUJT/oerm0MeGnZxYLZA=
 v2ray.com/core v4.18.2+incompatible/go.mod h1:0yC/gG6Jd6qgp9PuaXuFE9uOi1xVYoDPexD1nlFms/w=
+v2ray.com/core v4.19.1+incompatible h1:JWoYsYlCpFOJX5KcmSkAMHOqOjzux+wx/HtgMBkUvSg=
+v2ray.com/core v4.19.1+incompatible/go.mod h1:0yC/gG6Jd6qgp9PuaXuFE9uOi1xVYoDPexD1nlFms/w=

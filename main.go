@@ -5,25 +5,22 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/golang/protobuf/proto"
 	"os"
 	"os/signal"
 	"os/user"
 	"strconv"
 	"strings"
 	"syscall"
-
-	"github.com/golang/protobuf/proto"
-
 	"v2ray.com/core"
-
 	"v2ray.com/core/app/dispatcher"
 	"v2ray.com/core/app/proxyman"
 	_ "v2ray.com/core/app/proxyman/inbound"
 	_ "v2ray.com/core/app/proxyman/outbound"
-
 	"v2ray.com/core/common/net"
 	"v2ray.com/core/common/protocol"
 	"v2ray.com/core/common/serial"
+	"v2ray.com/core/transport/internet/headers/wechat"
 
 	"v2ray.com/core/proxy/dokodemo"
 	"v2ray.com/core/proxy/freedom"
@@ -133,6 +130,7 @@ func generateConfig() (*core.Config, error) {
 			Path: *path,
 			Header: []*websocket.Header{
 				{Key: "Host", Value: *host},
+				{Key: "User-Agent", Value: "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0"},
 			},
 		}
 		connectionReuse = true
@@ -144,6 +142,7 @@ func generateConfig() (*core.Config, error) {
 	case "quic":
 		transportSettings = &quic.Config{
 			Security: &protocol.SecurityConfig{Type: protocol.SecurityType_NONE},
+			Header:   serial.ToTypedMessage(&wechat.VideoConfig{}),
 		}
 		*tlsEnabled = true
 		logInfo("mode: quic tls")
@@ -227,6 +226,10 @@ func generateConfig() (*core.Config, error) {
 					PortRange:      net.SinglePortRange(lport),
 					Listen:         net.NewIPOrDomain(net.ParseAddress(*localAddr)),
 					StreamSettings: &streamConfig,
+					SniffingSettings: &proxyman.SniffingConfig{
+						Enabled:             true,
+						DestinationOverride: []string{"http", "tls"},
+					},
 				}),
 				ProxySettings: serial.ToTypedMessage(&dokodemo.Config{
 					Address:  net.NewIPOrDomain(proxyAddress),
