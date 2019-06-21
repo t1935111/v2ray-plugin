@@ -20,8 +20,6 @@ import (
 	"v2ray.com/core/common/net"
 	"v2ray.com/core/common/protocol"
 	"v2ray.com/core/common/serial"
-	"v2ray.com/core/transport/internet/headers/wechat"
-
 	"v2ray.com/core/proxy/dokodemo"
 	"v2ray.com/core/proxy/freedom"
 
@@ -142,7 +140,7 @@ func generateConfig() (*core.Config, error) {
 	case "quic":
 		transportSettings = &quic.Config{
 			Security: &protocol.SecurityConfig{Type: protocol.SecurityType_NONE},
-			Header:   serial.ToTypedMessage(&wechat.VideoConfig{}),
+			//Header:   serial.ToTypedMessage(&wechat.VideoConfig{}),
 		}
 		*tlsEnabled = true
 		logInfo("mode: quic tls")
